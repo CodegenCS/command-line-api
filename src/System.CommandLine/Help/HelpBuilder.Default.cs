@@ -146,8 +146,8 @@ public partial class HelpBuilder
             yield return SynopsisSection();
             yield return CommandUsageSection();
             yield return CommandArgumentsSection();
-            yield return OptionsSection();
             yield return SubcommandsSection();
+            yield return OptionsSection();
             yield return AdditionalArgumentsSection();
         }
 

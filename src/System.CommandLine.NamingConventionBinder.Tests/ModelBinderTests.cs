@@ -112,6 +112,29 @@ public class ModelBinderTests
         instance.StringOption.Should().Be("the default");
     }
 
+
+    public class MyClass
+    {
+        public string MyOption { get; set; }
+    }
+
+    [Fact]
+    public void TestPOptions()
+    {
+        var option = new Option<string>("-p:myoption", () => "the default");
+
+        var command = new Command("the-command");
+        command.AddOption(option);
+        var binder = new ModelBinder(typeof(MyClass));
+
+        var parser = new Parser(command);
+        var bindingContext = new InvocationContext(parser.Parse("-p:myoption=test")).BindingContext;
+
+        var instance = (MyClass)binder.CreateInstance(bindingContext);
+
+        instance.MyOption.Should().Be("test");
+    }
+
     [Theory]
     [InlineData(typeof(string), "--value hello", "hello")]
     [InlineData(typeof(int), "--value 123", 123)]

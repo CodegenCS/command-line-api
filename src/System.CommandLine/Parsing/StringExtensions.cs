@@ -36,6 +36,10 @@ namespace System.CommandLine.Parsing
         {
             if (alias[0] == '-')
             {
+                if (alias.Length > 3 && alias[1] == '-' && alias[2] == 'p' && alias[3] == ':')
+                    return 4;
+                if (alias.Length > 2 && alias[1] == 'p' && alias[2] == ':')
+                    return 3;
                 return alias.Length > 1 && alias[1] == '-'
                            ? 2
                            : 1;
@@ -43,6 +47,8 @@ namespace System.CommandLine.Parsing
 
             if (alias[0] == '/')
             {
+                if (alias.Length > 2 && alias[1] == 'p' && alias[2] == ':')
+                    return 3;
                 return 1;
             }
 
@@ -61,8 +67,23 @@ namespace System.CommandLine.Parsing
                 {
                     return ("--", rawAlias.Substring(2));
                 }
+                if (rawAlias.Length > 3 && rawAlias[1] == '-' && rawAlias[2] == 'p' && rawAlias[3] == ':')
+                {
+                    return ("--p:", rawAlias.Substring(4));
+                }
+                if (rawAlias.Length > 2 && rawAlias[1] == 'p' && rawAlias[2] == ':')
+                {
+                    return ("-p:", rawAlias.Substring(3));
+                }
 
                 return ("-", rawAlias.Substring(1));
+            }
+            else if (rawAlias[0] == '/')
+            {
+                if (rawAlias.Length > 2 && rawAlias[1] == 'p' && rawAlias[2] == ':')
+                {
+                    return ("/p:", rawAlias.Substring(3));
+                }
             }
 
             return (null, rawAlias);
@@ -345,7 +366,14 @@ namespace System.CommandLine.Parsing
             out string first,
             out string? rest)
         {
-            var i = arg.AsSpan().IndexOfAny(':', '=');
+            int i = -1;
+            if (arg.StartsWith("--p:") || arg.StartsWith("-p:") || arg.StartsWith("/p:"))
+            {
+                i = arg.AsSpan().IndexOf('=');
+            }
+
+            if (i < 0)
+                i = arg.AsSpan().IndexOfAny(':', '=');
 
             if (i >= 0)
             {

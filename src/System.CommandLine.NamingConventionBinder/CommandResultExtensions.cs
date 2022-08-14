@@ -139,6 +139,8 @@ internal static class CommandResultExtensions
             {
                 switch (alias[0])
                 {
+                    case '-' when alias.Length > 2 && alias[1] == 'p' && alias[2] == ':':
+                        return 3;
                     case '-' when alias.Length > 1 && alias[1] == '-':
                         return 2;
                     case '-':

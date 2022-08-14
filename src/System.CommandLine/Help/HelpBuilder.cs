@@ -108,7 +108,7 @@ namespace System.CommandLine.Help
             _getLayout = getLayout ?? throw new ArgumentNullException(nameof(getLayout));
         }
 
-        private string GetUsage(Command command)
+        public virtual string GetUsage(Command command)
         {
             return string.Join(" ", GetUsageParts().Where(x => !string.IsNullOrWhiteSpace(x)));
 
@@ -141,11 +141,12 @@ namespace System.CommandLine.Help
                 }
 
                 displayOptionTitle = displayOptionTitle || command.Options.Any(x => !x.IsHidden);
-                
+                    
                 if (displayOptionTitle)
                 {
-                    yield return LocalizationResources.HelpUsageOptions();
+	                    yield return LocalizationResources.HelpUsageOptions();
                 }
+
 
                 if (!command.TreatUnmatchedTokensAsErrors)
                 {
@@ -460,7 +461,7 @@ namespace System.CommandLine.Help
                         ? $"[{GetArgumentDefaultValue(context.Command, argument, true, context)}]"
                         : "";
 
-                var secondColumnText = $"{argumentDescription} {defaultValueDescription}".Trim();
+                var secondColumnText = $"{argumentDescription} {defaultValueDescription}";
 
                 return new TwoColumnHelpRow(firstColumnText, secondColumnText);
             }
