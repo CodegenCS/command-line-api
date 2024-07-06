@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
@@ -8,9 +8,15 @@
     <Nullable>enable</Nullable>
     <Description>This package provides command handler support for System.CommandLine performs parameter and model binding by matching option and argument names to parameter and property names.</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PackageProjectUrl>https://github.com/Drizin/CodegenCS-command-line-api</PackageProjectUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
   </PropertyGroup>
    
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+  <PropertyGroup>
     <DebugType>portable</DebugType>
   </PropertyGroup>
    

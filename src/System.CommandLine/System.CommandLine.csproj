@@ -18,9 +18,22 @@
     <IsTrimmable>true</IsTrimmable>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PackageProjectUrl>https://github.com/Drizin/CodegenCS-command-line-api</PackageProjectUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
   </PropertyGroup>
-   
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <PropertyGroup>
     <DebugType>portable</DebugType>
   </PropertyGroup>
    
